@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
-import Fetcher, { BASE_URL } from '../api/fetcher'
-import { Hero } from '../types/hero'
+import { useState } from 'react'
 import HeroCard from '../components/HeroCard'
 import Waiting from '../components/Waiting'
-import Spinner from '../components/Spinner/Spinner'
+import { useGetHeroes } from '../hooks/useGetHeroes'
 
 const letters: string[] = []
 for (let i = 97; i <= 122; i++) {
@@ -11,33 +9,8 @@ for (let i = 97; i <= 122; i++) {
 }
 
 const Heroes = () => {
-  const [heroes, setHeroes] = useState<Hero[]>([])
-  const [isLoading, setIsLoading] = useState(true)
   const [selectedLetter, setSelectedLetter] = useState('a')
-
-  useEffect(() => {
-    console.log('Rendu initial du composant Heroes')
-    const controller = new AbortController()
-    setIsLoading(true)
-    // Recuperer de l'API tout les heroes commençant par la lettre A
-    Fetcher.get(`${BASE_URL}/heroes?name_like=^${selectedLetter}`, {
-      method: 'GET',
-      signal: controller.signal,
-    })
-      .then((data) => {
-        setIsLoading(false)
-        setHeroes(data)
-      })
-      .catch((error) => {
-        console.log({
-          error, // error: error
-        })
-      })
-    return () => {
-      console.log('Destruction du composant Heroes')
-      controller.abort()
-    }
-  }, [selectedLetter])
+  const { heroes, isLoading, isError, errorMessage } = useGetHeroes(selectedLetter)
 
   const onClickLetter = (letter: string) => {
     setSelectedLetter(letter)
@@ -64,6 +37,7 @@ const Heroes = () => {
           ))}
         </div>
       </Waiting>
+      {isError && <p className='text-red-500'>Error: {errorMessage}</p> }
     </section>
   )
 }
