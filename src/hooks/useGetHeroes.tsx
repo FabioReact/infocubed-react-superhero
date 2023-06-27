@@ -12,14 +12,21 @@ const useGetHeroes = (selectedLetter: string) => {
     console.log('Rendu initial du composant Heroes')
     const controller = new AbortController()
     setIsLoading(true)
+    setIsError(false)
+    setErrorMessage('')
     // Recuperer de l'API tout les heroes commençant par la lettre A
-    Fetcher.get(`${BASE_URL}/heroeszzzz?name_like=^${selectedLetter}`, {
+    Fetcher.get(`${BASE_URL}/heroes?name_like=^${selectedLetter}`, {
       method: 'GET',
       signal: controller.signal,
     })
       .then((data) => {
+        if (Array.isArray(data)) {
+          setHeroes(data)
+        } else {
+          setIsError(true)
+          setErrorMessage('Not a valid array')
+        }
         setIsLoading(false)
-        setHeroes(data)
       })
       .catch((error) => {
         console.log({ error })
