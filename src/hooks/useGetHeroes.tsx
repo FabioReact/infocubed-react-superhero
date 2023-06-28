@@ -26,13 +26,16 @@ const useGetHeroes = (selectedLetter: string) => {
           setIsError(true)
           setErrorMessage('Not a valid array')
         }
-        setIsLoading(false)
       })
       .catch((error) => {
         console.log({ error })
+        if (error.name !== 'AbortError') {
+          setIsError(true)
+          setErrorMessage('Server Error')
+        }
+      })
+      .finally(() => {
         setIsLoading(false)
-        setIsError(true)
-        setErrorMessage('Server Error')
       })
     return () => {
       console.log('Destruction du composant Heroes')
