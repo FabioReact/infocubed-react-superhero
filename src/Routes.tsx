@@ -3,6 +3,7 @@ import Heroes from './pages/Heroes'
 import SearchHeroes from './pages/SearchHeroes'
 import Layout from './hoc/Layout'
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -11,6 +12,7 @@ export const router = createBrowserRouter(
       <Route path='search' element={<SearchHeroes />} />
       <Route path='heroes' element={<Heroes />} />
       <Route path='login' element={<Login />} />
+      <Route path='register' element={<Register />} />
       <Route path='*' element={ <div>Oops, 404 à implementer</div> } />
     </Route>,
   ),
