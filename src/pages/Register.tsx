@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useRegisterForm } from '../hooks/useRegisterForm'
 // import { useNavigate } from 'react-router-dom'
 
@@ -15,9 +14,7 @@ import { useRegisterForm } from '../hooks/useRegisterForm'
 //   })
 
 const Register = () => {
-  // const [formFields, dispatch] = useReducer(reducer, intitialState)
-  const { formFields, updatePassword, updateEmail } = useRegisterForm()
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const { formFields, updatePassword, updateEmail, updatePasswordConfirmation } = useRegisterForm()
   // const navigate = useNavigate()
 
   const onSubmitHandler = (event: React.FormEvent) => {
@@ -83,12 +80,15 @@ const Register = () => {
         <fieldset>
           <label htmlFor='passwordConfirmation'>Confirm Password:</label>
           <input
-            type='password'
+            type='text'
             name='passwordConfirmation'
             id='passwordConfirmation'
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            value={formFields.passwordConfirmation}
+            onChange={(e) => updatePasswordConfirmation(e.target.value)}
           />
+          {formFields.passwordConfirmationErrors.map((passwordError) => (
+            <span className='text-red-500 block font-semibold'>- {passwordError}</span>
+          ))}
         </fieldset>
         <button type='submit'>Register</button>
       </form>
