@@ -28,11 +28,16 @@ const Layout = () => {
                 Login
               </NavLink>
             </li>
+            <li>
+              <NavLink to='/register' className={getActiveClassName}>
+                Register
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </header>
       <Outlet />
-      <footer>Copyright</footer>
+      <footer className='text-right'>Copyright</footer>
     </>
   )
 }

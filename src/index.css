@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+	@apply bg-black text-white rounded py-1 px-5 !important;
+}
