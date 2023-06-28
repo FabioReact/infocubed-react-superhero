@@ -1,11 +1,16 @@
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { RouterProvider } from 'react-router-dom'
 import { router } from './Routes'
 import ErrorBoundary from './hoc/ErrorBoundary'
-import { RouterProvider } from 'react-router-dom'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <ErrorBoundary>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ErrorBoundary>
   )
 }
