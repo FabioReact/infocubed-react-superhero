@@ -7,6 +7,7 @@ import Login from './pages/Login'
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
+      <Route index element={<p>Home Page</p>} />
       <Route path='search' element={<SearchHeroes />} />
       <Route path='heroes' element={<Heroes />} />
       <Route path='login' element={<Login />} />
