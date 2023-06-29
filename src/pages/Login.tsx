@@ -1,19 +1,25 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../context/auth-context'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-	const navigate = useNavigate()
+  const navigate = useNavigate()
+  const { onLogin } = useAuthContext()
 
-	const onSubmitHandler = (event: React.FormEvent) => {
-		event.preventDefault()
-		console.log(email, password)
-		// Appel à l'API pour se connecter
-		// Erreur -> Afficher les erreurs
-		// Succès -> Redirection
-		navigate('/')
-	}
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/";
+
+  const onSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault()
+    console.log(email, password)
+    onLogin()
+    // Appel à l'API pour se connecter
+    // Erreur -> Afficher les erreurs
+    // Succès -> Redirection
+    navigate(from, { replace: true })
+  }
 
   return (
     <section>
