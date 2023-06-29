@@ -15,12 +15,19 @@ export const favoriteHeroesSlice = createSlice({
   initialState,
   reducers: {
 		addFavoriteHero: (state, action: PayloadAction<Hero>) => {
-			state.heroes.push(action.payload)
+			const index = state.heroes.findIndex(hero => hero.id === action.payload.id)
+			if (index === -1)
+				state.heroes.push(action.payload)
+		},
+		deleteFavoriteHero: (state, action: PayloadAction<number>) => {
+			const index = state.heroes.findIndex(hero => hero.id === action.payload)
+			if (index !== -1)
+				state.heroes.splice(index)
 		}
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addFavoriteHero } = favoriteHeroesSlice.actions
+export const { addFavoriteHero, deleteFavoriteHero } = favoriteHeroesSlice.actions
 
 export default favoriteHeroesSlice.reducer

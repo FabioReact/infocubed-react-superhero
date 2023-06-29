@@ -4,7 +4,7 @@ import { getHeroById } from '../api/heroes'
 import { useAuthContext } from '../context/auth-context'
 import { Hero } from '../types/hero'
 import { useAppDispatch } from '../redux/hooks'
-import { addFavoriteHero } from '../redux/reducers/favoriteHeroesSlice'
+import { addFavoriteHero, deleteFavoriteHero } from '../redux/reducers/favoriteHeroesSlice'
 // import { useQuery } from 'react-query'
 // import Waiting from '../components/Waiting'
 
@@ -22,6 +22,7 @@ const HeroDetails = () => {
     <section>
       <h1>Hero Details</h1>
       {connected && <button onClick={onClickHandler}>Add to Favorite</button>}
+      {connected && <button onClick={() => dispatch(deleteFavoriteHero(hero.id))}>Remove from Favorite</button>}
       {/* {JSON.stringify(hero, null, 2)} */}
       <HeroCard hero={hero} />
     </section>
