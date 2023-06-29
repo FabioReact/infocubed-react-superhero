@@ -27,6 +27,8 @@ export const favoriteHeroesSlice = createSlice({
   },
 })
 
+// export const getFavoriteHeroes = (state: State) => state.heroes
+
 // Action creators are generated for each case reducer function
 export const { addFavoriteHero, deleteFavoriteHero } = favoriteHeroesSlice.actions
 

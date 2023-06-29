@@ -3,6 +3,7 @@ import HeroCard from '../components/HeroCard'
 import Waiting from '../components/Waiting'
 import { useGetHeroes } from '../hooks/useGetHeroes'
 import { Link } from 'react-router-dom'
+import { useGetHeroesByLetterQuery } from '../redux/services/heroes'
 
 const letters: string[] = []
 for (let i = 97; i <= 122; i++) {
@@ -11,7 +12,8 @@ for (let i = 97; i <= 122; i++) {
 
 const Heroes = () => {
   const [selectedLetter, setSelectedLetter] = useState('a')
-  const { heroes, isLoading, isError, errorMessage } = useGetHeroes(selectedLetter)
+  // const { heroes, isLoading, isError, errorMessage } = useGetHeroes(selectedLetter)
+  const { isLoading, isError, data: heroes } = useGetHeroesByLetterQuery(selectedLetter)
 
   const onClickLetter = (letter: string) => {
     setSelectedLetter(letter)
@@ -33,14 +35,14 @@ const Heroes = () => {
       </ul>
       <Waiting isLoading={isLoading}>
         <div className='flex flex-wrap gap-4 justify-center'>
-          {heroes.map((hero) => (
+          {heroes && heroes.map((hero) => (
             <Link to={`${hero.id}`}>
               <HeroCard key={hero.id} hero={hero} />
             </Link>
           ))}
         </div>
       </Waiting>
-      {isError && <p className='text-red-500'>Error: {errorMessage}</p> }
+      {isError && <p className='text-red-500'>Error: </p> }
     </section>
   )
 }
