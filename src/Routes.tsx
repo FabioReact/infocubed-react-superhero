@@ -6,9 +6,13 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Battle from './pages/Battle'
 import HeroDetails, {loader} from './pages/HeroDetails'
-import Home from './pages/Home'
+// import Home from './pages/Home'
 import Profile from './pages/Profile'
 import PrivateRoute from './hoc/PrivateRoute'
+import Optimisations from './pages/Optimisations'
+import { lazy } from 'react'
+
+const Home = lazy(() => import('./pages/Home'))
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +27,7 @@ export const router = createBrowserRouter(
         <PrivateRoute><Profile /></PrivateRoute>
       } />
       <Route path='register' element={<Register />} />
+      <Route path='optimisations' element={<Optimisations />} />
       <Route path='*' element={ <div>Oops, 404 à implementer</div> } />
     </Route>,
   ),

@@ -5,6 +5,8 @@ import ErrorBoundary from './hoc/ErrorBoundary'
 import { AuthContextProvider } from './context/auth-context'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import { Suspense } from 'react'
+import Spinner from './components/Spinner/Spinner'
 // import { useState } from 'react'
 
 const queryClient = new QueryClient()
@@ -19,7 +21,9 @@ function App() {
       <Provider store={store}>
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
+            <Suspense fallback={<Spinner />}>
+              <RouterProvider router={router} />
+            </Suspense>
           </QueryClientProvider>
         </AuthContextProvider>
       </Provider>
