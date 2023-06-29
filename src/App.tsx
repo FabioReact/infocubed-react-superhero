@@ -3,6 +3,8 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './Routes'
 import ErrorBoundary from './hoc/ErrorBoundary'
 import { AuthContextProvider } from './context/auth-context'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 // import { useState } from 'react'
 
 const queryClient = new QueryClient()
@@ -14,11 +16,13 @@ function App() {
   // const [connected, setConnected] = useState(false)
   return (
     <ErrorBoundary>
-      <AuthContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </AuthContextProvider>
+      <Provider store={store}>
+        <AuthContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </AuthContextProvider>
+      </Provider>
     </ErrorBoundary>
   )
 }
