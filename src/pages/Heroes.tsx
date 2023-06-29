@@ -2,6 +2,7 @@ import { useState } from 'react'
 import HeroCard from '../components/HeroCard'
 import Waiting from '../components/Waiting'
 import { useGetHeroes } from '../hooks/useGetHeroes'
+import { Link } from 'react-router-dom'
 
 const letters: string[] = []
 for (let i = 97; i <= 122; i++) {
@@ -33,7 +34,9 @@ const Heroes = () => {
       <Waiting isLoading={isLoading}>
         <div className='flex flex-wrap gap-4 justify-center'>
           {heroes.map((hero) => (
-            <HeroCard key={hero.id} hero={hero} />
+            <Link to={`${hero.id}`}>
+              <HeroCard key={hero.id} hero={hero} />
+            </Link>
           ))}
         </div>
       </Waiting>

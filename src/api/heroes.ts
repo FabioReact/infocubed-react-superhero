@@ -17,4 +17,11 @@ export const getHeroes = ({ name, intelligence, speed }: GetHeroesParams): Promi
   })
 }
 
+export const getHeroById = (id: number): Promise<Hero> => {
+  return Fetcher.get(`${BASE_URL}/heroes/${id}`).catch((error) => {
+    console.log({ error })
+    throw new Error('Error while fetching getHeroById')
+  })
+}
+
 // export { getHeroes }

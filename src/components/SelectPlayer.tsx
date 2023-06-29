@@ -38,6 +38,7 @@ const SelectPlayer = ({
           <input type='text' id={`player${label}`} name={`player${label}`} ref={inputRef} />
           <button type='submit'>Search</button>
         </form>
+        {isError && <p className='text-red-500'>{(error as Error).message}</p>}
         {isFetched && data && (
           <div className='inline-block'>
             {data.map((hero) => (

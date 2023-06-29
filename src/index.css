@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-button {
+button, .btn {
 	@apply bg-black text-white rounded py-1 px-5 !important;
+}
+
+h1 {
+	@apply text-center text-4xl uppercase font-thin tracking-widest my-6
 }
